@@ -19,6 +19,11 @@
         <div class="mb-3">
            <label for="image" class="form-label">Image link</label>
          <input name="listing[image][url]" value="<%= listing.image.url %>" type="text" class="form-control"/>
+          <input
+          type="hidden"
+          name="listing[image][filename]"
+          value="<%= listing.image.filename %>"
+        />
         </div>
       
         <div class="row">
