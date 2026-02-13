@@ -1,80 +1,125 @@
-<% layout("/layouts/boilerplates")%>
+<% layout("/layouts/boilerplates") %>
 
 <div class="row mt-3">
   <div class="col-8 offset-2">
-  
-  <h3>Create a New Listing</h3>
-  <form method="POST" action="/listings" class="needs-validation" >
 
-   
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input
-        name="listing[title]"
-        placeholder="enter title"
-        type="text"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea name="listing[description]" class="form-control" required></textarea>
-    </div>
+    <h3>Create a New Listing</h3>
 
-    <div class="mb-3">
-      <label for="image" class="form-label">Image link</label>
-      <input
-        name="listing[image][url]"
-        placeholder="enter image URL/Link"
-        type="text"
-        class="form-control"
-      />
-          <input
+    <!-- Global error alert -->
+    <% if (typeof errors !== 'undefined' && errors) { %>
+      <div class="alert alert-danger" role="alert">
+        <% for (let field in errors) { %>
+          <p class="mb-0"><%= errors[field].message %></p>
+        <% } %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/listings" class="needs-validation" novalidate>
+
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          name="listing[title]"
+          placeholder="enter title"
+          type="text"
+          class="form-control <%= (typeof errors !== 'undefined' && errors && errors.title) ? 'is-invalid' : '' %>"
+          required
+        />
+        <div class="valid-feedback">Title looks good!</div>
+        <% if (typeof errors !== 'undefined' && errors && errors.title) { %>
+          <div class="invalid-feedback" style="display: block;">
+            <%= errors.title.message %>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          name="listing[description]"
+          class="form-control <%= (typeof errors !== 'undefined' && errors && errors.description) ? 'is-invalid' : '' %>"
+          required
+        ></textarea>
+        <% if (typeof errors !== 'undefined' && errors && errors.description) { %>
+          <div class="invalid-feedback" style="display: block;">
+            <%= errors.description.message %>
+          </div>
+        <% } else { %>
+          <div class="invalid-feedback">Please enter a short Description</div>
+        <% } %>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image link</label>
+        <input
+          name="listing[image][url]"
+          placeholder="enter image URL/Link"
+          type="text"
+          class="form-control"
+        />
+        <input
           type="hidden"
           name="listing[image][filename]"
           value="listingimage"
         />
-    </div>
-    <div class="row">
-      <div class="mb-3 col-md-4">
-      <label for="price" class="form-label">Price</label>
-      <input
-        name="listing[price]"
-        placeholder="enter price"
-        type="number"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="mb-3 col-md-8">
-      <label for="country" class="form-label">Country</label>
-      <input
-        name="listing[country]"
-        placeholder="enter country"
-        type="text"
-        class="form-control"
-        required
-      />
-    </div>
-    </div>
-    
-    <div class="mb-3">
-      <label for="location" class="form-label">Location</label>
+      </div>
 
-      <input
-        name="listing[location]"
-        placeholder="enter location"
-        type="text"
-        class="form-control"
-        required
-      />
-    </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input
+            name="listing[price]"
+            placeholder="enter price"
+            class="form-control <%= (typeof errors !== 'undefined' && errors && errors.price) ? 'is-invalid' : '' %>"
+            required
+          />
+          <% if (typeof errors !== 'undefined' && errors && errors.price) { %>
+            <div class="invalid-feedback" style="display: block;">
+              <%= errors.price.message %>
+            </div>
+          <% } else { %>
+            <div class="invalid-feedback">Price should be valid</div>
+          <% } %>
+        </div>
 
-    
-    <button class="btn btn-dark add-btn mt-3">Add</button>
-     
-  </form>
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input
+            name="listing[country]"
+            placeholder="enter country"
+            type="text"
+            class="form-control <%= (typeof errors !== 'undefined' && errors && errors.country) ? 'is-invalid' : '' %>"
+            required
+          />
+          <% if (typeof errors !== 'undefined' && errors && errors.country) { %>
+            <div class="invalid-feedback" style="display: block;">
+              <%= errors.country.message %>
+            </div>
+          <% } else { %>
+            <div class="invalid-feedback">Country should be valid</div>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          name="listing[location]"
+          placeholder="enter location"
+          type="text"
+          class="form-control <%= (typeof errors !== 'undefined' && errors && errors.location) ? 'is-invalid' : '' %>"
+          required
+        />
+        <% if (typeof errors !== 'undefined' && errors && errors.location) { %>
+          <div class="invalid-feedback" style="display: block;">
+            <%= errors.location.message %>
+          </div>
+        <% } else { %>
+          <div class="valid-feedback">Location looks good!</div>
+        <% } %>
+      </div>
+
+      <button class="btn btn-dark add-btn mt-3">Add</button>
+    </form>
   </div>
-  </div>
-
+</div>
