@@ -1,11 +1,73 @@
 <% layout("/layouts/boilerplates")%>
 
-    <h3>All listings</h3>
-     <!-- <form method="GET" action="/listings/new">
-      <button>Create New Listing</button>
-    </form> -->
+  <style>
 
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+   #filters{
+    display: flex;
+    flex-wrap: wrap;
+   }
+
+   .filter{
+    text-align:center;
+    margin-top: 2rem;
+    margin-right: 3.2rem;
+    opacity: 0.7;
+   }
+
+   .filter:hover{
+    opacity:1;
+    cursor: pointer;
+   }
+  </style>
+
+<div id="filters">
+       <div class="filter">
+       <div><i class="fa-solid fa-fire"> </i></div> 
+       <p>Trending</p> 
+        </div>
+        <div class="filter">
+       <div><i class="fa-solid fa-bed"></i> </i></div> 
+       <p>Rooms</p> 
+        </div>
+         <div class="filter">
+       <div><i class="fa-solid fa-mountain-city"></i></div> 
+       <p>Iconic cities</p> 
+        </div>
+        <div class="filter">
+       <div><i class="fa-solid fa-mountain"></i> </i></div> 
+       <p>Mountains</p> 
+        </div>
+         <div class="filter">
+       <div><i class="fa-solid fa-place-of-worship"></i></div> 
+       <p>Castles</p> 
+        </div>
+        <div class="filter">
+       <div><i class="fa-solid fa-person-swimming"></i> </i></div> 
+       <p>Amazing pools</p> 
+        </div>
+          <div class="filter">
+       <div><i class="fa-solid fa-tent"></i> </div> 
+       <p>Camping</p> 
+        </div>
+         <div class="filter">
+       <div><i class="fa-regular fa-snowflake"></i></div> 
+       <p>Snow</p> 
+        </div>
+        <div class="filter">
+       <div><i class="fa-solid fa-umbrella-beach"></i> </div> 
+       <p>Beaches</p> 
+        </div>
+           <div class="filter">
+       <div><i class="fa-solid fa-ship"></i></div> 
+       <p>Cruises</p> 
+        </div>
+          <div class="filter">
+       <div><i class="fa-solid fa-key"></i></div> 
+       <p>New</p> 
+        </div>
+        
+</div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
 <% for(let listing of allListings) {%>
     <a href="/listings/<%= listing._id  %>" class="listing-link">
 

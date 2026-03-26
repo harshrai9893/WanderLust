@@ -14,7 +14,7 @@
       </div>
     <% } %>
 
-    <form method="POST" action="/listings" class="needs-validation" novalidate>
+    <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
 
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -28,7 +28,7 @@
         <div class="valid-feedback">Title looks good!</div>
         <% if (typeof errors !== 'undefined' && errors && errors.title) { %>
           <div class="invalid-feedback" style="display: block;">
-            <%= errors.title.message %>
+            <%= errors.title.message %> 
           </div>
         <% } %>
       </div>

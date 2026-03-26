@@ -47,9 +47,9 @@ const sessionOptions = {
     },
 };
 
-app.get("/" , (req,res)=>{
-    res.send("hi iam harsh");
-})
+// app.get("/" , (req,res)=>{
+//     res.send("hi iam harsh");
+// })
 
 app.use(session(sessionOptions));
 app.use(flash());  // always use before routes because it uses routes
@@ -69,16 +69,6 @@ app.use((req,res,next)=>{
     res.locals.currUser = req.user;
     next();
 });
-
-// app.get("/demouser", async(req,res)=>{
-//     let fakeUser = new User({
-//         email:"student@gmail.com",
-//         username:"delta-student",
-//     });
-
-//     let registeredUser = await User.register(fakeUser, "helloworld");
-//     res.send(registeredUser);  
-// });
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
