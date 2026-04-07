@@ -3,7 +3,7 @@ const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
 
-const Mongo_url = 'mongodb+srv://Harshrai05:Harsh14114@cluster0.ajpeqqi.mongodb.net/?appName=Cluster0';
+const Mongo_url = 'mongodb+srv://harshrai05:Harsh14114@cluster0.xmztp4h.mongodb.net/';
 
 main()
     .then(()=>{
