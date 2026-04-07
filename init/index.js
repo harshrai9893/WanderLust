@@ -3,7 +3,7 @@ const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
 
-const Mongo_url = 'mongodb+srv://harshrai05:Harsh14114@cluster0.xmztp4h.mongodb.net/';
+const dbUrl = process.env.MONGO_URL;
 
 main()
     .then(()=>{
@@ -13,7 +13,7 @@ main()
     });
 
 async function main(){
-    await mongoose.connect(Mongo_url);
+    await mongoose.connect(dbUrl);
 }
 
 const initDB = async ()=>{
