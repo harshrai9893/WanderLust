@@ -6,7 +6,7 @@ module.exports.index =async (req,res)=>{
   res.render("listings/index.ejs", {allListings});
 }
 
- module.exports.renderNewForm = async (req,res)=>{
+ module.exports.renderNewForm = async(req,res)=>{
    res.render("listings/new.ejs");
 }
 
@@ -28,19 +28,23 @@ module.exports.showListing = async (req,res)=>{
 }
 
 module.exports.createListing = async (req, res, next) => {
- 
-    // If image URL is empty, set it undefined
-    if (!req.body.listing.image.url) {
-  req.body.listing.image.url = undefined;
-}
+  let url = req.file.path;
+  let filename = req.file.filename;
+  let listingData = req.body.listing;
 
-    let listingData = req.body.listing;
-    const newListing = new Listing(listingData);
-    newListing.owner = req.user._id;
-    await newListing.save();
-     req.flash("success", "new listing created!");
-    res.redirect("/listings");
-}
+  //  Safe check (no crash)
+  if (!listingData.image || !listingData.image.url) {
+    listingData.image = { url: "" }; // or default image
+  }
+
+  const newListing = new Listing(listingData); 
+  newListing.owner = req.user._id;
+  newListing.image = {url,filename};
+  await newListing.save();
+
+  req.flash("success", "new listing created!");
+  return res.redirect("/listings"); //  add return
+};
 
  module.exports.editListing = async (req,res)=>{
     let {id} = req.params;
@@ -49,12 +53,23 @@ module.exports.createListing = async (req, res, next) => {
       req.flash("error", "Listing you requested does not exist !");
       return res.redirect("/listings");
     }
-    res.render("listings/edit.ejs", {listing});
+    let originalImageUrl = listing.image.url;
+    originalImageUrl = originalImageUrl.replace("/upload","/upload/h_200,w_250")
+    res.render("listings/edit.ejs", {listing ,originalImageUrl});
 }
 
  module.exports.updateListing = async (req,res)=>{
+ 
       let {id} = req.params;
-      await Listing.findByIdAndUpdate(id,{...req.body.listing});
+    let listing =   await Listing.findByIdAndUpdate(id,{...req.body.listing});
+       
+    if (typeof req.file !=="undefine"){
+        let url = req.file.path;
+         let filename = req.file.filename;
+         listing.image= {url,filename};
+         await listing.save();
+    }
+
       req.flash("success", " listing updated!");
       res.redirect(`/listings/${id}`); // updated id me redirect krega
 }

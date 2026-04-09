@@ -4,7 +4,7 @@ module.exports.renderSignupForm = async(req,res)=>{
     res.render("users/signup.ejs");
 }
 
-module.exports.Signup =async(req,res)=>{
+module.exports.Signup =async(req,res,next)=>{
     try{
         let{username, email , password} = req.body;
         const newUser = new User({email, username});
@@ -28,7 +28,7 @@ module.exports.renderLoginForm =(req,res)=>{
     res.render("users/login.ejs");
 }
 
-module.exports.login = async(req,res)=>{
+module.exports.login = (req,res)=>{
     req.flash("success", "welcome back to wanderlust! you are logged in ");
     let redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express")
 const app = express();
 const mongoose = require("mongoose");
@@ -15,8 +17,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-
-const Mongo_url = 'mongodb+srv://Harshrai05:Harsh14114@cluster0.ajpeqqi.mongodb.net/?appName=Cluster0';
+const dbUrl = process.env.MONGO_URL;
 
 main()
     .then(()=>{
@@ -26,7 +27,7 @@ main()
     });
 
 async function main(){
-    await mongoose.connect(Mongo_url);
+    await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
