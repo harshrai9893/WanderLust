@@ -12,14 +12,14 @@ async function main() {
   console.log(" MongoDB Connected");
 }
 
-const initDB = async () => {
-  console.log(" Running initDB...");
-  await Listing.deleteMany({});
-  await Listing.insertMany(initData.data);
-  console.log(" data was initialized");
-};
+// const initDB = async () => {
+//   console.log(" Running initDB...");
+//   await Listing.deleteMany({});
+//   await Listing.insertMany(initData.data);
+//   console.log(" data was initialized");
+// };
 
-main()
-  .then(() => initDB())
-  .catch((err) => console.log(err));
+// main()
+//   .then(() => initDB())
+//   .catch((err) => console.log(err));
 
