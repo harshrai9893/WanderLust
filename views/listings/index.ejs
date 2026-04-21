@@ -1,96 +1,102 @@
-<% layout("/layouts/boilerplates")%>
+<% layout('layouts/boilerplates') %>
 
-  <style>
-
-   #filters{
-    display: flex;
-    flex-wrap: wrap;
-   }
-
-   .filter{
-    text-align:center;
-    margin-top: 2rem;
-    margin-right: 3.2rem;
-    opacity: 0.7;
-   }
-
-   .filter:hover{
-    opacity:1;
-    cursor: pointer;
-   }
-  </style>
-
-<div id="filters">
-       <div class="filter">
-       <div><i class="fa-solid fa-fire"> </i></div> 
-       <p>Trending</p> 
+<div style="margin-top: 2rem;">
+    <!-- Filters -->
+    <div id="filters">
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
         </div>
         <div class="filter">
-       <div><i class="fa-solid fa-bed"></i> </i></div> 
-       <p>Rooms</p> 
-        </div>
-         <div class="filter">
-       <div><i class="fa-solid fa-mountain-city"></i></div> 
-       <p>Iconic cities</p> 
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p>
         </div>
         <div class="filter">
-       <div><i class="fa-solid fa-mountain"></i> </i></div> 
-       <p>Mountains</p> 
-        </div>
-         <div class="filter">
-       <div><i class="fa-solid fa-place-of-worship"></i></div> 
-       <p>Castles</p> 
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic Cities</p>
         </div>
         <div class="filter">
-       <div><i class="fa-solid fa-person-swimming"></i> </i></div> 
-       <p>Amazing pools</p> 
-        </div>
-          <div class="filter">
-       <div><i class="fa-solid fa-tent"></i> </div> 
-       <p>Camping</p> 
-        </div>
-         <div class="filter">
-       <div><i class="fa-regular fa-snowflake"></i></div> 
-       <p>Snow</p> 
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
         </div>
         <div class="filter">
-       <div><i class="fa-solid fa-umbrella-beach"></i> </div> 
-       <p>Beaches</p> 
+            <div><i class="fa-solid fa-place-of-worship"></i></div>
+            <p>Castles</p>
         </div>
-           <div class="filter">
-       <div><i class="fa-solid fa-ship"></i></div> 
-       <p>Cruises</p> 
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing Pools</p>
         </div>
-          <div class="filter">
-       <div><i class="fa-solid fa-key"></i></div> 
-       <p>New</p> 
+        <div class="filter">
+            <div><i class="fa-solid fa-tent"></i></div>
+            <p>Camping</p>
         </div>
-        
-</div>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-<% for(let listing of allListings) {%>
-    <a href="/listings/<%= listing._id  %>" class="listing-link">
-
-<div class="card col listing-card" >
-  <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style ="height:20rem"/>
-  <div class="card-img-overlay"></div>
-  
-  <div class="card-body">
-    <p class="card-text">
-       <b><%= listing.title%></b> <br>
-       &#8377;
-<%= listing.price
-    ? listing.price.toLocaleString("en-IN")
-    : "N/A"
-%> / night
-
-    </p>
-  </div>
-</div>
-<% }%>
+        <div class="filter">
+            <div><i class="fa-regular fa-snowflake"></i></div>
+            <p>Snow</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-umbrella-beach"></i></div>
+            <p>Beaches</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-ship"></i></div>
+            <p>Cruises</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-key"></i></div>
+            <p>New</p>
+        </div>
     </div>
-    </a>
-   
 
+    <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;">
 
+    <!-- Listings Grid -->
+    <div class="row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of allListings) { %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="listing-card">
+                    <div style="position: relative;">
+                        <img 
+                            src="<%= listing.image.url %>" 
+                            class="card-img-top" 
+                            alt="<%= listing.title %>"
+                        />
+                        <div class="card-img-overlay">
+                            <i class="fa-solid fa-heart" style="color: #ff385c; font-size: 1.5rem;"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= listing.title %></b>
+                            <span style="color: #717171; font-size: 0.9rem; display: block; margin-top: 0.3rem;">
+                                <%= listing.location %>
+                            </span>
+                            <span style="color: #222; font-weight: 600; display: block; margin-top: 0.5rem;">
+                                &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> <span style="font-weight: 400;">/ night</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
 
+    <!-- Empty State -->
+    <% if(allListings.length === 0) { %>
+        <div style="text-align: center; padding: 4rem 2rem;">
+            <i class="fa-solid fa-inbox" style="font-size: 3rem; color: #ddd; display: block; margin-bottom: 1rem;"></i>
+            <h3 style="color: #222; margin-bottom: 0.5rem;">No listings yet</h3>
+            <p style="color: #717171;">Be the first to post an amazing place!</p>
+            <% if(currUser) { %>
+                <a href="/listings/new" class="btn btn-success" style="margin-top: 1rem;">
+                    <i class="fa-solid fa-plus"></i> Create Listing
+                </a>
+            <% } else { %>
+                <a href="/signup" class="btn btn-success" style="margin-top: 1rem;">
+                    <i class="fa-solid fa-sign-up"></i> Sign Up to Post
+                </a>
+            <% } %>
+        </div>
+    <% } %>
+</div>

@@ -42,7 +42,7 @@ module.exports.createListing = async (req, res, next) => {
   newListing.image = {url,filename};
   await newListing.save();
 
-  req.flash("success", "new listing created!");
+  req.flash("success", "New listing created!");
   return res.redirect("/listings"); //  add return
 };
 
@@ -70,7 +70,7 @@ module.exports.createListing = async (req, res, next) => {
          await listing.save();
     }
 
-      req.flash("success", " listing updated!");
+      req.flash("success", " Listing updated!");
       res.redirect(`/listings/${id}`); // updated id me redirect krega
 }
 
@@ -78,6 +78,6 @@ module.exports.deleteListing = async (req,res)=>{
     let {id} = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
     // console.log(deletedListing);
-    req.flash("success", " listing deleted!");
+    req.flash("success", " Listing deleted!");
     res.redirect("/listings");
 }

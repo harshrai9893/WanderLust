@@ -1,123 +1,149 @@
-<% layout("/layouts/boilerplates") %>
-
-<div class="row mt-3">
-  <div class="col-8 offset-2">
-
-    <h3>Create a New Listing</h3>
+<% layout('layouts/boilerplates') %>
+<div class="form-section" style="margin-top: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <i class="fa-solid fa-home" style="font-size: 2.5rem; color: #ff385c;"></i>
+    </div>
+    <h3>Become a Host</h3>
 
     <!-- Global error alert -->
     <% if (typeof errors !== 'undefined' && errors) { %>
-      <div class="alert alert-danger" role="alert">
-        <% for (let field in errors) { %>
-          <p class="mb-0"><%= errors[field].message %></p>
-        <% } %>
-      </div>
+        <div class="alert alert-danger" role="alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <% for (let field in errors) { %>
+                <p class="mb-0"><strong><%= field %>:</strong> <%= errors[field].message %></p>
+            <% } %>
+        </div>
     <% } %>
 
     <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
 
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input
-          name="listing[title]"
-          placeholder="enter title"
-          type="text"
-          class="form-control <%= (typeof errors !== 'undefined' && errors && errors.title) ? 'is-invalid' : '' %>"
-          required
-        />
-        <div class="valid-feedback">Title looks good!</div>
-        <% if (typeof errors !== 'undefined' && errors && errors.title) { %>
-          <div class="invalid-feedback" style="display: block;">
-            <%= errors.title.message %> 
-          </div>
-        <% } %>
-      </div>
-
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea
-          name="listing[description]"
-          class="form-control <%= (typeof errors !== 'undefined' && errors && errors.description) ? 'is-invalid' : '' %>"
-          required
-        ></textarea>
-        <% if (typeof errors !== 'undefined' && errors && errors.description) { %>
-          <div class="invalid-feedback" style="display: block;">
-            <%= errors.description.message %>
-          </div>
-        <% } else { %>
-          <div class="invalid-feedback">Please enter a short Description</div>
-        <% } %>
-      </div>
-
-    
-      <div class="mb-3">
-        <label for="image" class="form-label">Upload Listing Image </label>
-        <input
-          name="listing[image]" 
-          type="file"
-          class="form-control"
-           required
-        />
-       
-        
-      </div>
-
-      <div class="row">
-        <div class="mb-3 col-md-4">
-          <label for="price" class="form-label">Price</label>
-          <input
-            name="listing[price]"
-            placeholder="enter price"
-            class="form-control <%= (typeof errors !== 'undefined' && errors && errors.price) ? 'is-invalid' : '' %>"
-            required
-          />
-          <% if (typeof errors !== 'undefined' && errors && errors.price) { %>
-            <div class="invalid-feedback" style="display: block;">
-              <%= errors.price.message %>
-            </div>
-          <% } else { %>
-            <div class="invalid-feedback">Price should be valid</div>
-          <% } %>
+        <div class="mb-3">
+            <label for="title" class="form-label">
+                <i class="fa-solid fa-heading"></i> Listing Title
+            </label>
+            <input
+                name="listing[title]"
+                id="title"
+                placeholder="e.g., Cozy Apartment in City Center"
+                type="text"
+                class="form-control <%= (typeof errors !== 'undefined' && errors && errors.title) ? 'is-invalid' : '' %>"
+                required
+            />
+            <div class="valid-feedback">Title looks good!</div>
+            <% if (typeof errors !== 'undefined' && errors && errors.title) { %>
+                <div class="invalid-feedback" style="display: block;">
+                    <%= errors.title.message %>
+                </div>
+            <% } %>
         </div>
 
-        <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">Country</label>
-          <input
-            name="listing[country]"
-            placeholder="enter country"
-            type="text"
-            class="form-control <%= (typeof errors !== 'undefined' && errors && errors.country) ? 'is-invalid' : '' %>"
-            required
-          />
-          <% if (typeof errors !== 'undefined' && errors && errors.country) { %>
-            <div class="invalid-feedback" style="display: block;">
-              <%= errors.country.message %>
-            </div>
-          <% } else { %>
-            <div class="invalid-feedback">Country should be valid</div>
-          <% } %>
+        <div class="mb-3">
+            <label for="description" class="form-label">
+                <i class="fa-solid fa-align-left"></i> Description
+            </label>
+            <textarea
+                name="listing[description]"
+                id="description"
+                class="form-control <%= (typeof errors !== 'undefined' && errors && errors.description) ? 'is-invalid' : '' %>"
+                placeholder="Describe your listing in detail..."
+                required
+            ></textarea>
+            <% if (typeof errors !== 'undefined' && errors && errors.description) { %>
+                <div class="invalid-feedback" style="display: block;">
+                    <%= errors.description.message %>
+                </div>
+            <% } else { %>
+                <div class="invalid-feedback">Please enter a description</div>
+            <% } %>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
-        <input
-          name="listing[location]"
-          placeholder="enter location"
-          type="text"
-          class="form-control <%= (typeof errors !== 'undefined' && errors && errors.location) ? 'is-invalid' : '' %>"
-          required
-        />
-        <% if (typeof errors !== 'undefined' && errors && errors.location) { %>
-          <div class="invalid-feedback" style="display: block;">
-            <%= errors.location.message %>
-          </div>
-        <% } else { %>
-          <div class="valid-feedback">Location looks good!</div>
-        <% } %>
-      </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">
+                <i class="fa-solid fa-image"></i> Listing Image
+            </label>
+            <input
+                name="listing[image]"
+                id="image"
+                type="file"
+                class="form-control"
+                accept="image/*"
+                required
+            />
+            <small style="color: #717171;">Upload a high-quality image for better visibility</small>
+        </div>
 
-      <button class="btn btn-dark add-btn mt-3">Add</button>
+        <div class="row" style="gap: 1rem;">
+            <div class="mb-3" style="flex: 0 0 calc(33% - 0.67rem);">
+                <label for="price" class="form-label">
+                    <i class="fa-solid fa-indian-rupee-sign"></i> Price per Night
+                </label>
+                <input
+                    name="listing[price]"
+                    id="price"
+                    placeholder="e.g., 2000"
+                    type="number"
+                    class="form-control <%= (typeof errors !== 'undefined' && errors && errors.price) ? 'is-invalid' : '' %>"
+                    required
+                />
+                <% if (typeof errors !== 'undefined' && errors && errors.price) { %>
+                    <div class="invalid-feedback" style="display: block;">
+                        <%= errors.price.message %>
+                    </div>
+                <% } else { %>
+                    <div class="invalid-feedback">Price must be valid</div>
+                <% } %>
+            </div>
+
+            <div class="mb-3" style="flex: 1; min-width: 150px;">
+                <label for="country" class="form-label">
+                    <i class="fa-solid fa-globe"></i> Country
+                </label>
+                <input
+                    name="listing[country]"
+                    id="country"
+                    placeholder="e.g., India"
+                    type="text"
+                    class="form-control <%= (typeof errors !== 'undefined' && errors && errors.country) ? 'is-invalid' : '' %>"
+                    required
+                />
+                <% if (typeof errors !== 'undefined' && errors && errors.country) { %>
+                    <div class="invalid-feedback" style="display: block;">
+                        <%= errors.country.message %>
+                    </div>
+                <% } else { %>
+                    <div class="invalid-feedback">Country is required</div>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-label">
+                <i class="fa-solid fa-location-dot"></i> Location
+            </label>
+            <input
+                name="listing[location]"
+                id="location"
+                placeholder="e.g., Mumbai"
+                type="text"
+                class="form-control <%= (typeof errors !== 'undefined' && errors && errors.location) ? 'is-invalid' : '' %>"
+                required
+            />
+            <% if (typeof errors !== 'undefined' && errors && errors.location) { %>
+                <div class="invalid-feedback" style="display: block;">
+                    <%= errors.location.message %>
+                </div>
+            <% } else { %>
+                <div class="valid-feedback">Location looks good!</div>
+            <% } %>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn btn-success">
+                <i class="fa-solid fa-check"></i> Publish Listing
+            </button>
+            <a href="/listings" class="btn btn-outline-dark">
+                <i class="fa-solid fa-arrow-left"></i> Cancel
+            </a>
+        </div>
     </form>
-  </div>
 </div>
